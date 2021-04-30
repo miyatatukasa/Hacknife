@@ -2,6 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+Hacknife/[Ll]ibrary/
+Hacknife/[Tt]emp/
+Hacknife/[Oo]bj/
+Hacknife/[Bb]uild/
+Hacknife/[Bb]uilds/
+Hacknife/[Ll]ogs/
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/

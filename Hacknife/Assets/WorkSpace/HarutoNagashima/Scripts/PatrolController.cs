@@ -27,7 +27,7 @@ public class PatrolController : MonoBehaviour
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = transform.root.gameObject.GetComponent<NavMeshAgent>();
 
         // autobreakingをfalseにすると、目標地点の間を継続的に移動するようになる
         // エージェントは目標地点に近づいても速度を落とさず移動し続ける
@@ -37,7 +37,7 @@ public class PatrolController : MonoBehaviour
     void Update()
     {
         // エージェントが現在の目標地点に近づいてきたら次の目標地点を設定
-        if(!agent.pathPending&&agent.remainingDistance<0.5f) // 地点を狭い間隔で配置してエネミーの動きがおかしいようであれば0.5fの部分をより小さい値へ書き換えてください
+        if(!agent.pathPending&&agent.remainingDistance<0.1f) // 地点を狭い間隔で配置してエージェントの動きがおかしいようであれば0.5fの部分をより小さい値へ書き換えてください
         {
             GotoNextPoint();
         }

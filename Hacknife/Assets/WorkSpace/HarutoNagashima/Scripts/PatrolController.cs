@@ -37,7 +37,7 @@ public class PatrolController : MonoBehaviour
     void Update()
     {
         // エージェントが現在の目標地点に近づいてきたら次の目標地点を設定
-        if(!agent.pathPending&&agent.remainingDistance<0.1f) // 地点を狭い間隔で配置してエージェントの動きがおかしいようであれば0.5fの部分をより小さい値へ書き換えてください
+        if(!agent.pathPending&&agent.remainingDistance<0.3f) // 地点を狭い間隔で配置してエージェントの動きがおかしいようであれば0.5fの部分をより小さい値へ書き換えてください
         {
             GotoNextPoint();
         }

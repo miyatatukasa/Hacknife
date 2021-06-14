@@ -18,6 +18,7 @@ public class CharacterMove : MonoBehaviour
     private Rigidbody rb;
     // カプセルコライダの移動量
     private Vector3 velocity;
+    
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class CharacterMove : MonoBehaviour
         Debug.Log(MoveSpeed);
 
         // キャラクター移動処理
-        velocity = new Vector3(0, 0, v);    // 上下のキー入力からZ軸の移動量を取得
+        velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得
 
         if (v > 0.1 || v < 0.1)
         {
@@ -49,6 +50,6 @@ public class CharacterMove : MonoBehaviour
         //上下のキー入力でキャラクターを移動させる
         transform.localPosition += velocity * Time.fixedDeltaTime;
         // 左右のキー入力でキャラクタをY軸で旋回させる
-        transform.Rotate(0, h * rotateSpeed, 0);
+        //transform.Rotate(0, h * rotateSpeed, 0);
     }
 }

@@ -18,8 +18,9 @@ public class PlayerInfo : MonoBehaviour
     public GameObject PlayerObj { get; set; }
     // プレイヤーとなるオブジェクトの攻撃処理をセット(Control処理でこれを受け取るだけ)
     public IAttackable Attack { get; set; }
-    // 索敵状態
-    public bool Scouting { get; set; } = false;
+    // 索敵されたらAddする
+    public List<GameObject> Sortings { get => sortList; set => sortList = value; }
+    List<GameObject> sortList = new List<GameObject>();
 
 
     void Awake()

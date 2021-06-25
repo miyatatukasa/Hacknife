@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
@@ -9,16 +7,13 @@ public class CharacterMove : MonoBehaviour
     // 移動速度
     [SerializeField]
     float MoveSpeed;
-    // 旋回速度
-    [SerializeField]
-    float rotateSpeed;
     // カプセルコライダの参照
     private CapsuleCollider col;
     // リジッドボディの参照
     private Rigidbody rb;
     // カプセルコライダの移動量
     private Vector3 velocity;
-    
+
 
     void Start()
     {
@@ -33,7 +28,6 @@ public class CharacterMove : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        Debug.Log(MoveSpeed);
 
         // キャラクター移動処理
         velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得

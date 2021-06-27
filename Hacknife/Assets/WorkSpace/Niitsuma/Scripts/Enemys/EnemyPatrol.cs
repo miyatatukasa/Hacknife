@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour, IHackable
 {
-    enum PatorolType
-    { 
-        NORMAL, //AHO
-        SLIGHTLYCAUTION,
-        CAUTION, // KEIKAI MAX 
-    }
 
     public bool IsFound { get; private set; } // playerを見つけたら有効化
 
-    public GameObject MyObj { get; private set; }
+
+    public CharactorType GetEnemyType { get => _enemyType; }
 
     [SerializeField] private GameObject _turningParent;
     [SerializeField] private float _speed = 3f;
     [SerializeField] private float _stopTime = 2f;
-    [SerializeField] private PatorolType _patorolType;
+    [SerializeField] private CharactorType _enemyType;
     [SerializeField] private float _rotateSpeed = 3f;
 
     SearchTrigger _searchTrigger;
@@ -29,10 +24,11 @@ public class EnemyPatrol : MonoBehaviour, IHackable
     float _nowTime = 0;
     bool _isStop = false;
 
+    bool isRelease = true;
+
     void Awake()
     {
-        Init();
-        MyObj = this.gameObject;
+        if (this.gameObject != PlayerInfo.Instance.PlayerObj) { Init(); }
         _searchTrigger = GetComponent<SearchTrigger>();
     }
 
@@ -63,10 +59,11 @@ public class EnemyPatrol : MonoBehaviour, IHackable
 
     void Patrol(System.Action call = null)
     {
-        if(transform.position != _turningPos[_goPos].position && !_isStop)
+        var targetPos = new Vector3(_turningPos[_goPos].position.x, transform.position.y, _turningPos[_goPos].position.z);
+        if (transform.position != targetPos && !_isStop)
         {
             transform.rotation = LookTarget(_turningPos[_goPos].position);
-            transform.position = Vector3.MoveTowards(transform.position, _turningPos[_goPos].position, Time.deltaTime * _speed);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * _speed);
         }
         else
         {
@@ -79,6 +76,7 @@ public class EnemyPatrol : MonoBehaviour, IHackable
                 else { _isStop = false; _nowTime = 0; }
             }
         }
+        Debug.LogError("test");
     }
 
     void PlayerLook()
@@ -86,25 +84,30 @@ public class EnemyPatrol : MonoBehaviour, IHackable
         transform.rotation = LookTarget(PlayerInfo.Instance.PlayerObj.transform.position);
         //transform.position = Vector3.MoveTowards(transform.position, PlayerInfo.Instance.PlayerObj.transform.position, Time.deltaTime * 3);
     }
-
-    void PatrolMove(PatorolType pat)
+    // ハッキングからの解放
+    void Hackingrelease()
     {
-        switch (pat)
-        {
-            case PatorolType.NORMAL:            Patrol(); break;
-            case PatorolType.SLIGHTLYCAUTION:   Patrol(); break;
-            case PatorolType.CAUTION:           Patrol(); break;
-        }
-    }
 
+    }
     
     void Update()
     {
         if(PlayerInfo.Instance.PlayerObj != this.gameObject)
         {
-            if (Input.GetKeyDown(KeyCode.A)) { Teleport(); }
-            if(!_searchTrigger.IsSearch) PatrolMove(_patorolType);
-            else PlayerLook();
+            if (!isRelease)
+            {
+                Teleport(); // 今は待たずにteleport
+                isRelease = true;
+            }
+            else
+            {
+                if (!_searchTrigger.IsSearch) Patrol();
+                else PlayerLook();
+            }
+        }
+        else
+        {
+            if (isRelease) { isRelease = false; } // ハッキング状態
         }
     }
 }

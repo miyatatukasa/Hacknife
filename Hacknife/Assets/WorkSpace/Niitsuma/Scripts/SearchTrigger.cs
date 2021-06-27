@@ -5,7 +5,8 @@ using UnityEngine;
 public class SearchTrigger : MonoBehaviour
 {
     public bool IsSearch { get; private set; }
-    private List<GameObject> _targets = new List<GameObject>();
+    public GameObject GetSearchObj { get => _targets; }
+    private GameObject _targets;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class SearchTrigger : MonoBehaviour
         {
             if (i_foundObject == PlayerInfo.Instance.PlayerObj)
             {
-                _targets.Add(i_foundObject);
+                _targets = i_foundObject;
                 PlayerInfo.Instance.Sortings.Add(this.gameObject);
                 IsSearch = true;
             }
@@ -31,8 +32,7 @@ public class SearchTrigger : MonoBehaviour
             var hit = i_foundObject.GetComponent<IHackable>();
             if(hit != null)
             {
-                _targets.Add(i_foundObject);
-                PlayerInfo.Instance.Hack = hit;
+                _targets = i_foundObject;
                 IsSearch = true;
             }
         }
@@ -43,14 +43,13 @@ public class SearchTrigger : MonoBehaviour
     {
         if(this.gameObject != PlayerInfo.Instance.PlayerObj)
         {
-            _targets.Remove(i_lostObject);
+            _targets = null;
             PlayerInfo.Instance.Sortings.Remove(this.gameObject);
             IsSearch = false;
         }
         else
         {
-            _targets.Remove(i_lostObject);
-            PlayerInfo.Instance.Hack = null;
+            _targets = null;
             IsSearch = false;
         }
     }

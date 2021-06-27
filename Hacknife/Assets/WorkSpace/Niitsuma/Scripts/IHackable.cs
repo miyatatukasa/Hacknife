@@ -2,5 +2,5 @@
 
 public interface IHackable
 {
-    public UnityEngine.GameObject MyObj { get; }
+    public CharactorType GetEnemyType { get; }
 }

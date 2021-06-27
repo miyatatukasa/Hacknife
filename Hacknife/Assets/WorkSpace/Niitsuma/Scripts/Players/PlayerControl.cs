@@ -20,10 +20,13 @@ public class PlayerControl : MonoBehaviour
     }
 
 
-    void Hacking(GameObject hitObj)
+    void Hacking(GameObject hit)
     {
-        _info.PlayerObj = hitObj;
+        _info.PlayerObj = hit;
+        _info.Hack = hit.GetComponent<IHackable>();
+        _info.EnemyType = _info.Hack.GetEnemyType;
         _playObj = _info.PlayerObj;
+        _search = _info.PlayerObj.GetComponent<SearchTrigger>();
         _attackable = _playObj.GetComponent<IAttackable>();
     }
 
@@ -48,8 +51,8 @@ public class PlayerControl : MonoBehaviour
             {
                 if (_search.IsSearch)
                 {
-                    Debug.Log("hack");
-                    Hacking(PlayerInfo.Instance.Hack.MyObj);
+                    Hacking(_search.GetSearchObj);
+                    Debug.Log(_info.EnemyType);
                 }
             }
         }

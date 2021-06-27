@@ -20,6 +20,8 @@ public class PlayerInfo : MonoBehaviour
     public IAttackable Attack { get; set; }
     // 
     public IHackable Hack { get; set; }
+    // 現在ハッキングしているエネミーの種類
+    public CharactorType EnemyType { get; set; }
     // 索敵されたらAddする
     public List<GameObject> Sortings { get => sortList; set => sortList = value; }
     List<GameObject> sortList = new List<GameObject>();

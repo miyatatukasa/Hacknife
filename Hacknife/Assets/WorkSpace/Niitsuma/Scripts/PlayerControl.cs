@@ -39,7 +39,7 @@ public class PlayerControl : MonoBehaviour
             player.transform.localPosition += Vector3.forward * ((Time.deltaTime * -1) * 2);
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         MovePlayer(_playObj);
         if (Input.GetKeyDown(KeyCode.Space))

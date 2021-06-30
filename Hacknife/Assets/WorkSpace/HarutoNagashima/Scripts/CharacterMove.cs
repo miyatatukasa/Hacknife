@@ -5,27 +5,15 @@ public class CharacterMove : MonoBehaviour
     // 移動速度
     [SerializeField]
     float MoveSpeed;
-//     // カプセルコライダの参照
-//     private CapsuleCollider col;
-//     // リジッドボディの参照
-//     private Rigidbody rb;
-     // カプセルコライダの移動量
-    private Vector3 velocity;
     // スクリプトの参照
-    [SerializeField]
-    private PlayerManagement playerManagement;
-    // 現在操作しているキャラクター
-    private GameObject nowPlayCharacter;
+    PlayerInfo playerInfo;
+    // 操作中のキャラクター
+    GameObject Player;
+    private Vector3 velocity;
+    
 
-    void Start()
-    {
-        playerManagement = GetComponent<PlayerManagement>();
-
-        nowPlayCharacter = playerManagement.NOW_PLAYCHARACTER;
-    }
     void FixedUpdate()
     {
-        nowPlayCharacter = playerManagement.NOW_PLAYCHARACTER;
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -43,6 +31,5 @@ public class CharacterMove : MonoBehaviour
         velocity = transform.TransformDirection(velocity);
 
         // キー入力でキャラクターを移動させる
-        nowPlayCharacter.transform.localPosition += velocity * Time.fixedDeltaTime; // ここでnowPlayCharacterがnullになる キャラクター増やして試す
     }
 }

@@ -6,6 +6,7 @@ public class CharacterMove : MonoBehaviour
     [SerializeField]
     float MoveSpeed;
     // スクリプトの参照
+    [SerializeField]
     PlayerInfo playerInfo;
     // 操作中のキャラクター
     GameObject Player;
@@ -31,5 +32,6 @@ public class CharacterMove : MonoBehaviour
         velocity = transform.TransformDirection(velocity);
 
         // キー入力でキャラクターを移動させる
+        playerInfo.PlayerObj.transform.localPosition = velocity;
     }
 }

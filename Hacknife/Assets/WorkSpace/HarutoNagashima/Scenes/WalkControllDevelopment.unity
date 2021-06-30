@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4d038d6e0369341ad513b6a52014ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followSmoothing: 3
+  followSmoothing: 6
   mainCamera: {fileID: 1976249423}
   playerInfo: {fileID: 369131233350402470}
 --- !u!1 &4144380942880600064
@@ -2923,7 +2923,6 @@ GameObject:
   - component: {fileID: 4144380942889943938}
   - component: {fileID: 4144380942880600355}
   - component: {fileID: 4144380942880600353}
-  - component: {fileID: 4144380942880600351}
   m_Layer: 0
   m_Name: BoxUnityChan
   m_TagString: Untagged
@@ -2931,19 +2930,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4144380942880600351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4144380942880600350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed0437c3adb1e5745915900a4ddb422e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 20
 --- !u!1 &4144380942880600352
 GameObject:
   m_ObjectHideFlags: 0
@@ -9095,3 +9081,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playObj: {fileID: 4144380942880600350}
+  MoveSpeed: 0.1

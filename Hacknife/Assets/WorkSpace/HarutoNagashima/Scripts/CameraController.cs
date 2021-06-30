@@ -3,30 +3,33 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    float followSmoothing = 20F; // カメラ移動の速度
+    float followSmoothing; // カメラ移動の速度
     [SerializeField]
     GameObject mainCamera; // カメラの変数
+    Vector3 cameraPos; // カメラの位置
     [SerializeField]
-    Transform cameraPos; // カメラの位置
+    PlayerInfo playerInfo; // スクリプトの参照
+    Vector3 camPos;
 
     void Start()
     {
-        initCameraPos();
+        InitCameraPos();
     }
 
     void FixedUpdate()
     {
-        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraPos.position, Time.fixedDeltaTime * followSmoothing); // 対象との距離を線形補間で追従する
+        // 対象との距離を線形補間で追従する
+        mainCamera.transform.position = 
+            Vector3.Lerp(mainCamera.transform.position, playerInfo.PlayerObj.transform.Find("CamPos").position, Time.fixedDeltaTime * followSmoothing); 
     }
 
     /// <summary>
     /// カメラの位置と追従対象の初期化
     /// </summary>
-    public void initCameraPos()
+    public void InitCameraPos()
     {
-        // カメラ位置の参照
-        //cameraPos = mainCamera.transform;
         // カメラ位置をcameraPosにする
-        mainCamera.transform.position = cameraPos.position;
+        mainCamera.transform.position = playerInfo.PlayerObj.transform.Find("CamPos").transform.position;
+        cameraPos = playerInfo.PlayerObj.transform.Find("CamPos").position;
     }
 }

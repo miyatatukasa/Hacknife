@@ -1,33 +1,23 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider))]
-[RequireComponent(typeof(Rigidbody))]
 public class CharacterMove : MonoBehaviour
 {
     // 移動速度
     [SerializeField]
     float MoveSpeed;
-    // カプセルコライダの参照
-    private CapsuleCollider col;
-    // リジッドボディの参照
-    private Rigidbody rb;
-    // カプセルコライダの移動量
+    // スクリプトの参照
+    [SerializeField]
+    PlayerInfo playerInfo;
+    // 操作中のキャラクター
+    GameObject Player;
     private Vector3 velocity;
-
-
-    void Start()
-    {
-        // カプセルコライダ―コンポーネントを取得する
-        col = GetComponent<CapsuleCollider>();
-        // リジッドボディコンポーネントを取得する
-        rb = GetComponent<Rigidbody>();
-    }
+    
 
     void FixedUpdate()
     {
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-
 
         // キャラクター移動処理
         velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得
@@ -41,9 +31,7 @@ public class CharacterMove : MonoBehaviour
         // モデルのローカル空間での方向に変換
         velocity = transform.TransformDirection(velocity);
 
-        //上下のキー入力でキャラクターを移動させる
-        transform.localPosition += velocity * Time.fixedDeltaTime;
-        // 左右のキー入力でキャラクタをY軸で旋回させる
-        //transform.Rotate(0, h * rotateSpeed, 0);
+        // キー入力でキャラクターを移動させる
+        playerInfo.PlayerObj.transform.localPosition = velocity;
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -8,6 +6,12 @@ public class PlayerControl : MonoBehaviour
     PlayerInfo _info;
     SearchTrigger _search;
     IAttackable _attackable;
+
+    /*長島追加*/
+    // 移動速度
+    [SerializeField]
+    float MoveSpeed;
+    private Vector3 velocity;
 
     void Awake()
     {
@@ -33,16 +37,35 @@ public class PlayerControl : MonoBehaviour
 
     void MovePlayer(GameObject player)
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        /*if (Input.GetKey(KeyCode.UpArrow))
         {
             player.transform.localPosition += Vector3.forward * (Time.deltaTime * 2);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
             player.transform.localPosition += Vector3.forward * ((Time.deltaTime * -1) * 2);
+        }*/
+
+        /*長島追加*/
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        // キャラクター移動処理
+        velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得
+
+        if (v > 0.1 || v < 0.1)
+        {
+            velocity *= MoveSpeed;       // 移動速度を掛ける
         }
+
+
+        // モデルのローカル空間での方向に変換
+        velocity = transform.TransformDirection(velocity);
+
+        // キー入力でキャラクターを移動させる
+        player.transform.localPosition += velocity;
     }
-    void Update()
+    void FixedUpdate()
     {
         MovePlayer(_playObj);
         if (Input.GetKeyDown(KeyCode.Space))

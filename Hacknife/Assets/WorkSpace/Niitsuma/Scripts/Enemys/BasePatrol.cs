@@ -19,13 +19,15 @@ public abstract class BasePatrol : MonoBehaviour, IHackable
 
     public CharactorType GetEnemyType { get => _enemyType; }
 
+    protected SearchTrigger _searchTrigger;
+    protected bool _isRelease = true; // ハッキング解除状態
+
     [SerializeField] private GameObject _turningParent;
     [SerializeField] private float _speed = 3f;
     [SerializeField] private float _stopTime = 2f;
     [SerializeField] private CharactorType _enemyType;
     [SerializeField] private float _rotateSpeed = 3f;
 
-    SearchTrigger _searchTrigger;
     Transform[] _turningPos;
     Vector3 _startPos; // 初期位置
     int _goPos = 0;
@@ -33,7 +35,6 @@ public abstract class BasePatrol : MonoBehaviour, IHackable
     float _nowTime = 0;
     bool _isStop = false;
 
-    bool isRelease = true; // ハッキング解除状態
 
     void Awake()
     {
@@ -95,7 +96,7 @@ public abstract class BasePatrol : MonoBehaviour, IHackable
         else { _isStop = false; _nowTime = 0; }
     }
 
-    void PlayerLook()
+    protected void PlayerLook()
     {
         transform.rotation = LookTarget(PlayerInfo.Instance.PlayerObj.transform.position);
         //transform.position = Vector3.MoveTowards(transform.position, PlayerInfo.Instance.PlayerObj.transform.position, Time.deltaTime * 3);
@@ -103,7 +104,7 @@ public abstract class BasePatrol : MonoBehaviour, IHackable
 
 
 
-    protected virtual void Update()
+    void Update()
     {
         if (PlayerInfo.Instance.PlayerObj != this.gameObject)
         {

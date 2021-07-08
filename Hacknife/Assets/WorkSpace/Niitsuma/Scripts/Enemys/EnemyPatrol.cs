@@ -24,7 +24,7 @@ public class EnemyPatrol : MonoBehaviour, IHackable
     float _nowTime = 0;
     bool _isStop = false;
 
-    bool isRelease = true;
+    bool _isRelease = true;
 
     void Awake()
     {
@@ -47,7 +47,7 @@ public class EnemyPatrol : MonoBehaviour, IHackable
     void Teleport()
     {
         transform.position = _startPos;
-        _goPos = 0;
+        _isRelease = true;
     }
 
     Quaternion LookTarget(Vector3 tar)
@@ -76,7 +76,6 @@ public class EnemyPatrol : MonoBehaviour, IHackable
                 else { _isStop = false; _nowTime = 0; }
             }
         }
-        Debug.LogError("test");
     }
 
     void PlayerLook()
@@ -89,15 +88,23 @@ public class EnemyPatrol : MonoBehaviour, IHackable
     {
 
     }
-    
+    /// <summary>
+    /// ハッキングされた際に初期化する
+    /// </summary>
+    void HackInit()
+    {
+        _goPos = 0;
+        _nowTime = 0;
+        _isStop = false;
+        _searchTrigger.SearchReset();
+    }
     void Update()
     {
         if(PlayerInfo.Instance.PlayerObj != this.gameObject)
         {
-            if (!isRelease)
+            if (!_isRelease)
             {
-                Teleport(); // 今は待たずにteleport
-                isRelease = true;
+                Invoke("Teleport", 2f); // 時間ないから
             }
             else
             {
@@ -107,7 +114,7 @@ public class EnemyPatrol : MonoBehaviour, IHackable
         }
         else
         {
-            if (isRelease) { isRelease = false; } // ハッキング状態
+            if (_isRelease) { HackInit(); _isRelease = false; } // ハッキング状態
         }
     }
 }

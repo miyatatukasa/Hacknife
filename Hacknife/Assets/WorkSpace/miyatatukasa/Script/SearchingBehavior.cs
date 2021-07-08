@@ -96,6 +96,14 @@ public class SearchingBehavior : MonoBehaviour
 
     private List<FoundData> m_foundList = new List<FoundData>();
 
+    /// <summary>
+    /// ハッキング時に索敵情報をリセットする
+    /// </summary>
+    public void ResetList()
+    {
+        m_foundList.Clear();
+    }
+
     private void OnDisable()
     {
         m_foundList.Clear();

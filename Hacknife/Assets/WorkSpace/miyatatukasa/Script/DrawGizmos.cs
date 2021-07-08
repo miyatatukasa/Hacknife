@@ -17,7 +17,8 @@ public class DrawGizmos : MonoBehaviour
     {
         EnemyTransform = transform;
         EnemyPos = EnemyTransform.position+Vector3.down;
-        Handles.color = Color.red;
-        Handles.DrawSolidArc(EnemyPos, Vector3.up, Quaternion.Euler(0f, - searchAngle, 0f) * transform.forward, searchAngle * 2f, searchArea.radius);
+        // Ç±Ç±Ç≈ÉGÉâÅ[Ç™ãNÇ±ÇÈ
+        //Handles.color = Color.red;
+        //Handles.DrawSolidArc(EnemyPos, Vector3.up, Quaternion.Euler(0f, - searchAngle, 0f) * transform.forward, searchAngle * 2f, searchArea.radius);
     }
 }

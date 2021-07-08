@@ -30,7 +30,7 @@ public static class SearchingBehaviorGizmosEditor
         {
             Mesh fanMesh = CreateFanMesh(i_object.SearchAngle, TRIANGLE_COUNT);
 
-            Gizmos.DrawMesh(fanMesh, pos, rot, scale);
+            Gizmos.DrawMesh(fanMesh, pos, rot, (scale * 2));
         }
     }
 

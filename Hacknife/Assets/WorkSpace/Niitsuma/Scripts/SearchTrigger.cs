@@ -15,6 +15,11 @@ public class SearchTrigger : MonoBehaviour
         searching.onLost += OnLost;
     }
 
+    public void SearchReset()
+    {
+        var searching = GetComponentInChildren<SearchingBehavior>();
+        searching.ResetList();
+    }
     private void OnFound(GameObject i_foundObject)
     {
         // サーチしているオブジェクトがプレイヤー以外の場合

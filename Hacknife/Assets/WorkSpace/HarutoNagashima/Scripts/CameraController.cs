@@ -20,7 +20,9 @@ public class CameraController : MonoBehaviour
     {
         // ëŒè€Ç∆ÇÃãóó£Çê¸å`ï‚ä‘Ç≈í«è]Ç∑ÇÈ
         mainCamera.transform.position = 
-            Vector3.Lerp(mainCamera.transform.position, playerInfo.PlayerObj.transform.Find("CamPos").position, Time.fixedDeltaTime * followSmoothing); 
+            Vector3.Lerp(mainCamera.transform.position, playerInfo.PlayerObj.transform.Find("CamPos").position, Time.fixedDeltaTime * followSmoothing);
+        mainCamera.transform.eulerAngles = new Vector3(
+            mainCamera.transform.eulerAngles.x, playerInfo.PlayerObj.transform.eulerAngles.y, playerInfo.PlayerObj.transform.eulerAngles.z);
     }
 
     /// <summary>

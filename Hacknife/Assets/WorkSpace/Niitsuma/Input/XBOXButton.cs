@@ -12,8 +12,8 @@ namespace XboxInput
         RB     = KeyCode.JoystickButton5,
         View   = KeyCode.JoystickButton6,
         Menu   = KeyCode.JoystickButton7,
-        Lstick = KeyCode.JoystickButton8,
-        Rstick = KeyCode.JoystickButton9,
+        Lstick = KeyCode.JoystickButton8, // âüÇµçûÇ›
+        Rstick = KeyCode.JoystickButton9, // âüÇµçûÇ›
     }
 
     public class XBXInput

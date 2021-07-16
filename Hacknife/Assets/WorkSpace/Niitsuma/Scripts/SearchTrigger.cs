@@ -8,8 +8,15 @@ public class SearchTrigger : MonoBehaviour
     public GameObject GetSearchObj { get => _targets; }
     private GameObject _targets;
 
-    private void Awake()
+    //private void Start()
+    //{
+    //    var searching = GetComponentInChildren<SearchingBehavior>();
+    //    searching.onFound += OnFound;
+    //    searching.onLost += OnLost;
+    //}
+    private IEnumerator Start()
     {
+        yield return PlayerInfo.Instance.PlayerObj != null;
         var searching = GetComponentInChildren<SearchingBehavior>();
         searching.onFound += OnFound;
         searching.onLost += OnLost;

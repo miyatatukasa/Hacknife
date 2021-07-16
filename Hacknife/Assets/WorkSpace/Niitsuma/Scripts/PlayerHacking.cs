@@ -28,15 +28,27 @@ public class PlayerHacking : MonoBehaviour
 
     void Update()
     {
+
+        if (_info.Sortings.Count == 0)
+        {
+            if (_search.IsSearch)
+            {
+                _info.CanHacking = true;
+            }
+            else
+            {
+                _info.CanHacking = false;
+            }
+        }
+        else
+        {
+            _info.CanHacking = false;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_info.Sortings.Count == 0)
+            if (_info.CanHacking)
             {
-                if (_search.IsSearch)
-                {
-                    Hacking(_search.GetSearchObj);
-                    Debug.Log(_info.EnemyType);
-                }
+                Hacking(_search.GetSearchObj);
             }
         }
     }

@@ -25,6 +25,8 @@ public class PlayerInfo : MonoBehaviour
     // 索敵されたらAddする
     public List<GameObject> Sortings { get => sortList; set => sortList = value; }
     List<GameObject> sortList = new List<GameObject>();
+    // ハッキングできるか
+    public bool CanHacking { get; set; }
 
 
     void Awake()

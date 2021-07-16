@@ -7,28 +7,12 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        //StartCoroutine(FadeScene());
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(FadeScene());
-        }
-    }
     public void QuitGame()
     {
         Debug.Log("Quit");
         Application.Quit();
-    }
-
-    IEnumerator FadeScene()
-    {
-        float time = GameObject.Find("Fade").GetComponent<FadeScene>().BeginFade(1);
-        yield return new WaitForSeconds(time);
-
-        SceneManager.LoadScene("MainScene");
     }
 }

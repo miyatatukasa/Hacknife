@@ -9,6 +9,10 @@ public class PlayerControl : MonoBehaviour
     // 移動速度
     [SerializeField]
     float MoveSpeed;
+    // アニメーターの参照
+    private Animator animator;
+    // プレイヤーのポジション
+    //private Vector3 playerPos;
     private Vector3 velocity;
 
     void Awake()
@@ -16,6 +20,10 @@ public class PlayerControl : MonoBehaviour
         _info = PlayerInfo.Instance;
         // 最初のプレイヤー
         _info.PlayerObj = _playObj;
+        // プレイヤーの初期座標取得
+        //playerPos = _playObj.transform.position;
+        // アニメーター取得
+        animator = _playObj.GetComponent<Animator>();
     }
 
     void MovePlayer(GameObject player)
@@ -31,22 +39,25 @@ public class PlayerControl : MonoBehaviour
         {
             velocity *= MoveSpeed;       // 移動速度を掛ける
         }
-
-        if (Input.GetKey(KeyCode.D))
+        if (velocity.magnitude > 0.1)
         {
-            player.transform.eulerAngles += Vector3.up * 2f;
+            // アニメーターに速度を渡す
+            animator.SetFloat("Speed", velocity.magnitude);
+            // 入力がある方向にキャラクターを移動させる
+            player.transform.localPosition += velocity;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else
         {
-            player.transform.eulerAngles -= Vector3.up * 2f;
+            animator.SetFloat("Speed", 0f);
         }
 
-
-        // モデルのローカル空間での方向に変換
-        velocity = player.transform.TransformDirection(velocity);
-
-        // キー入力でキャラクターを移動させる
-        player.transform.localPosition += velocity;
+        /*// キャラクター回転処理
+        Vector3 diff = player.transform.position - playerPos;
+        Debug.Log(diff);
+        if (diff.magnitude > 0.01f)
+        {
+            player.transform.rotation = Quaternion.LookRotation(diff);
+        }*/
     }
     void FixedUpdate()
     {

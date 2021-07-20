@@ -27,6 +27,8 @@ public class PlayerInfo : MonoBehaviour
     List<GameObject> sortList = new List<GameObject>();
     // ハッキングできるか
     public bool CanHacking { get; set; }
+    // ボタンUIを表示するか
+    public bool ShouldShowBtnUI { get; set; }
 
 
     void Awake()

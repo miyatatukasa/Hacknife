@@ -14,7 +14,13 @@ public class ButtonView : MonoBehaviour
 
     void Update()
     {
-        if (PlayerInfo.Instance.CanHacking) { btnUi.gameObject.SetActive(true); }
-        else { btnUi.gameObject.SetActive(false); }
+        if (PlayerInfo.Instance.CanHacking || PlayerInfo.Instance.ShouldShowBtnUI)
+        {
+            btnUi.gameObject.SetActive(true);
+        }
+        else if(!PlayerInfo.Instance.CanHacking && !PlayerInfo.Instance.ShouldShowBtnUI) 
+        {
+            btnUi.gameObject.SetActive(false);
+        }
     }
 }

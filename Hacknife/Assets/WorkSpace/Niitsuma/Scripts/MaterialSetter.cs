@@ -15,11 +15,4 @@ public class MaterialSetter : MonoBehaviour
         _image.material = NoiseParameter.GeneratNoiseMat(_shader, _color);
         NoiseParameter.NoiseFade(_image.material, 0);
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            FadeControl.Instance.NoiseFade(_image.material, 1f, 3f, () => Debug.LogError("GameOver"));
-        }
-    }
 }

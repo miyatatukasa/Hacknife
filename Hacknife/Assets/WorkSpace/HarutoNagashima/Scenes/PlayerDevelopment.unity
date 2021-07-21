@@ -20044,7 +20044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playObj: {fileID: 7291122766076338235}
-  MoveSpeed: 0.1
+  MoveSpeed: 5
 --- !u!1 &8207041925194940044
 GameObject:
   m_ObjectHideFlags: 0

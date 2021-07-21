@@ -12,16 +12,15 @@ public class PlayerControl : MonoBehaviour
     // アニメーターの参照
     private Animator animator;
     // プレイヤーのポジション
-    //private Vector3 playerPos;
+    private Vector3 playerPos;
     private Vector3 velocity;
+    Rigidbody rigidbody;
 
     void Awake()
     {
         _info = PlayerInfo.Instance;
         // 最初のプレイヤー
         _info.PlayerObj = _playObj;
-        // プレイヤーの初期座標取得
-        //playerPos = _playObj.transform.position;
         // アニメーター取得
         animator = _playObj.GetComponent<Animator>();
     }
@@ -29,38 +28,50 @@ public class PlayerControl : MonoBehaviour
     void MovePlayer(GameObject player)
     {
         /*長島追加*/
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
-        // キャラクター移動処理
-        velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得
+        rigidbody = player.GetComponent<Rigidbody>();
 
-        if (v > 0.1 || v < 0.1)
+        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 moveForward = cameraForward * v + Camera.main.transform.right * h;
+        rigidbody.velocity = moveForward * MoveSpeed + new Vector3(0, rigidbody.velocity.y, 0);
+
+        if (moveForward != Vector3.zero)
         {
-            velocity *= MoveSpeed;       // 移動速度を掛ける
-        }
-        if (velocity.magnitude > 0.1)
-        {
-            // アニメーターに速度を渡す
-            animator.SetFloat("Speed", velocity.magnitude);
-            // 入力がある方向にキャラクターを移動させる
-            player.transform.localPosition += velocity;
-        }
-        else
-        {
-            animator.SetFloat("Speed", 0f);
+           player.transform.rotation = Quaternion.LookRotation(moveForward);
         }
 
-        /*// キャラクター回転処理
-        Vector3 diff = player.transform.position - playerPos;
-        Debug.Log(diff);
-        if (diff.magnitude > 0.01f)
-        {
-            player.transform.rotation = Quaternion.LookRotation(diff);
-        }*/
+        /* // キャラクター移動処理
+         velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得
+
+         if (v > 0.1 || v < 0.1)
+         {
+             velocity *= MoveSpeed;       // 移動速度を掛ける
+         }
+         if (velocity.magnitude > 0.1)
+         {
+             // アニメーターに速度を渡す
+             animator.SetFloat("Speed", velocity.magnitude);
+             // 入力がある方向にキャラクターを移動させる
+             player.transform.localPosition += velocity;
+         }
+         else
+         {
+             animator.SetFloat("Speed", 0f);
+         }
+
+         // キャラクター回転処理
+         Vector3 diff = player.transform.position - playerPos;
+         if (diff.magnitude > 0.01f)
+         {
+             player.transform.rotation = Quaternion.LookRotation(diff);
+         }*/
     }
     void FixedUpdate()
     {
+        /*playerPos = _playObj.transform.position;
+        Debug.Log(playerPos);*/
         MovePlayer(PlayerInfo.Instance.PlayerObj);
     }
 }

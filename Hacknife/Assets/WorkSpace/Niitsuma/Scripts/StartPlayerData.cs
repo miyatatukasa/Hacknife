@@ -8,4 +8,9 @@ public class StartPlayerData : MonoBehaviour, IHackable
     {
         GetEnemyType = CharactorType.StartPlayer;
     }
+
+    void Update()
+    {
+        if(this.gameObject != PlayerInfo.Instance.PlayerObj) { gameObject.SetActive(false); }
+    }
 }

@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XboxInput;
 
 public class PlayerHacking : MonoBehaviour
 {
     private PlayerInfo _info;
-    private SearchTrigger _search;
+    private FowardSearch _search;
     //IAttackable _attackable;
 
     void Start()
     {
         _info = PlayerInfo.Instance;
         // 最初にプレイヤーとなるオブジェクトの攻撃処理を呼ぶ
-        _search = _info.PlayerObj.GetComponent<SearchTrigger>();
+        _search = _info.PlayerObj.GetComponent<FowardSearch>();
         //_attackable = _info.Attack = _playObj.GetComponent<IAttackable>();
     }
 
@@ -22,7 +23,7 @@ public class PlayerHacking : MonoBehaviour
         _info.PlayerObj = hit;
         _info.Hack = hit.GetComponent<IHackable>();
         _info.EnemyType = _info.Hack.GetEnemyType;
-        _search = _info.PlayerObj.GetComponent<SearchTrigger>();
+        _search = _info.PlayerObj.GetComponent<FowardSearch>();
         //_attackable = _playObj.GetComponent<IAttackable>();
     }
 
@@ -44,7 +45,7 @@ public class PlayerHacking : MonoBehaviour
         {
             _info.CanHacking = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || XBXInput.PushDown(XBXBtn.B))
         {
             if (_info.CanHacking)
             {

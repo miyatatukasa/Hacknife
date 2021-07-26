@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XboxInput;
 
 /// <summary>
 /// 簡易的なドアの開け閉め
@@ -48,21 +49,7 @@ public class DoorOpenClose : MonoBehaviour
 
     private void ButtonOpenDoor()
     {
-        if (!_isOpenWithKey)
-        {
-            OpenClose(true);
-        }
-        else
-        {
-            if(_keyType == PlayerInfo.Instance.EnemyType)
-            {
-                OpenClose(true);
-            }
-            else
-            {
-                // TODO: ここにテキストのUIを表示する何かをいれる
-            }
-        }
+        OpenClose(true);
     }
 
     private void AutoOpenDoor()
@@ -80,11 +67,13 @@ public class DoorOpenClose : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // FIX: 鍵じゃないタイプで触れたらUIが表示しぱなし
         if(collision.gameObject == PlayerInfo.Instance.PlayerObj)
         {
-            _isDoorOpen = true;
             if (!_isAutoDoor) { PlayerInfo.Instance.ShouldShowBtnUI = true; }
             else { _isMove = true; }
+            if (_isOpenWithKey && PlayerInfo.Instance.EnemyType == _keyType) { _isDoorOpen = true; }
+            else if (!_isOpenWithKey) { _isDoorOpen = true; }
         }
     }
 
@@ -100,7 +89,11 @@ public class DoorOpenClose : MonoBehaviour
 
     void Update()
     {
-        if (_isDoorOpen && Input.GetKeyDown(KeyCode.Space))
+        if (_isDoorOpen && XBXInput.PushDown(XBXBtn.B))
+        {
+            _isMove = true;
+        }
+        else if (_isDoorOpen && Input.GetKeyDown(KeyCode.Space))
         {
             _isMove = true;
         }

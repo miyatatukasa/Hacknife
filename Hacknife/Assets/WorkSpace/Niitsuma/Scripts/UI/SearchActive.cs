@@ -22,9 +22,9 @@ public class SearchActive : MonoBehaviour
             searchView.SetActive(false);
         }
     }
-
-    private void Update()
-    {
-        CharTypeActiveSet(PlayerInfo.Instance.EnemyType);
-    }
+    // 索敵範囲のアクティブ化
+    //private void Update()
+    //{
+    //    CharTypeActiveSet(PlayerInfo.Instance.EnemyType);
+    //}
 }

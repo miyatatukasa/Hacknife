@@ -6,6 +6,6 @@ public class KeyManEnemy : BasePatrol
 {
     void Update()
     {
-        if (_searchTrigger.IsSearch) { PlayerLook(); }
+        if (_search.IsSearch) { PlayerLook(); }
     }
 }

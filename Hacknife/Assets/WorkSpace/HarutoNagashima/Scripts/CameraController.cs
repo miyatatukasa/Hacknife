@@ -2,24 +2,37 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    // カメラの変数
     [SerializeField]
-    float followSmoothing; // カメラ移動の速度
+    GameObject mainCamera;
+    // スクリプトの参照
     [SerializeField]
-    GameObject mainCamera; // カメラの変数
+    PlayerInfo playerInfo;
+    // 構え時のレティクル
     [SerializeField]
-    PlayerInfo playerInfo; // スクリプトの参照
+    GameObject reticle;
     // 追従対象のオブジェクト
     GameObject targetObj;
+    // 構え時のカメラ位置
+    GameObject ADSPos;
 
     /// <summary>
     /// カメラの位置と追従対象の初期化
     /// </summary>
     public void InitCameraPos()
     {
-        // オブジェクト参照
+        // 通常位置オブジェクト参照
         targetObj = playerInfo.PlayerObj.transform.Find("CamPos").gameObject;
+        // 鎌叡智オブジェクト参照
+        ADSPos = playerInfo.PlayerObj.transform.Find("ADSPos").gameObject;
         // カメラ位置をcameraPosにする
-        mainCamera.transform.position = targetObj.transform.position; 
+        mainCamera.transform.position = targetObj.transform.position;
+    }
+
+    private void ADSControl()
+    {
+        mainCamera.transform.position = ADSPos.transform.position;
+        reticle.SetActive(true);
     }
 
     void Start()
@@ -30,12 +43,15 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        mainCamera.transform.position+=targetObj.transform.position - mainCamera.transform.position;
-        /*// 対象との距離を線形補間で追従する
-        mainCamera.transform.position =
-            Vector3.Lerp(mainCamera.transform.position, playerInfo.PlayerObj.transform.Find("CamPos").position, Time.fixedDeltaTime * followSmoothing);
-        mainCamera.transform.eulerAngles = new Vector3(
-            mainCamera.transform.eulerAngles.x, playerInfo.PlayerObj.transform.eulerAngles.y, playerInfo.PlayerObj.transform.eulerAngles.z);*/
+        mainCamera.transform.position += targetObj.transform.position - mainCamera.transform.position;
+        if (Input.GetAxis("ADS") >= 0.1)
+        {
+            ADSControl();
+        }
+        else
+        {
+            reticle.SetActive(false);
+        }
 
     }
 }

@@ -1,29 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ScenarioMessageView : MonoBehaviour
-{
-    private Text _messageText;
+public class ScenarioMessageView : MonoBehaviour {
+    private Text messageText;
 
-    void Start()
-    {
-        _messageText = GetComponent<Text>();
+    void Start() {
+        messageText = GetComponent<Text>();
     }
 
     /// <summary>
     /// メッセージテキストをセット
     /// </summary>
     /// <param name="message"></param>
-    public void SetMessage(string message)
-    {
-        _messageText.text = message;
+    public void SetMessage(string message) {
+        messageText.text = message;
     }
 
     /// <summary>
     /// メッセージテキストをクリア
     /// </summary>
-    public void ClearText()
-    {
-        _messageText.text = "";
+    public void ClearText() {
+        messageText.text = "";
     }
 }

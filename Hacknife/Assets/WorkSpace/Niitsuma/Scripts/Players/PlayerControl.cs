@@ -1,14 +1,12 @@
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
-{
-    [SerializeField] private GameObject _playObj;
-    PlayerInfo _info;
+public class PlayerControl : MonoBehaviour {
+    [SerializeField] private GameObject playObj;
+    PlayerInfo info;
 
     /*長島追加*/
     // 移動速度
-    [SerializeField]
-    float MoveSpeed;
+    [SerializeField] private float MoveSpeed;
     // アニメーターの参照
     private Animator animator;
     // プレイヤーのポジション
@@ -16,24 +14,21 @@ public class PlayerControl : MonoBehaviour
     private Vector3 velocity;
     Rigidbody rigidbody;
 
-    void Awake()
-    {
-        _info = PlayerInfo.Instance;
+    void Awake() {
+        info = PlayerInfo.Instance;
         // 最初のプレイヤー
-        _info.PlayerObj = _playObj;
+        info.PlayerObj = playObj;
         // アニメーター取得
-        animator = _playObj.GetComponent<Animator>();
+        animator = playObj.GetComponent<Animator>();
     }
 
-    private void PlayerInit()
-    {
-        _playObj = PlayerInfo.Instance.PlayerObj;
-        animator = _playObj.GetComponent<Animator>();
+    private void PlayerInit() {
+        playObj = PlayerInfo.Instance.PlayerObj;
+        animator = playObj.GetComponent<Animator>();
     }
-    void MovePlayer(GameObject player)
-    {
+    void MovePlayer(GameObject player) {
         if (GameManager.Instance.TimeStop) return;
-        if(_playObj != _info.PlayerObj){ PlayerInit(); }
+        if (playObj != info.PlayerObj) { PlayerInit(); }
         /*長島追加*/
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -55,12 +50,10 @@ public class PlayerControl : MonoBehaviour
         // キャラクター移動処理
         velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得
 
-        if (v > 0.1 || v < 0.1)
-        {
+        if (v > 0.1 || v < 0.1) {
             velocity *= MoveSpeed;       // 移動速度を掛ける
         }
-        if (velocity.magnitude > 0.1)
-        {
+        if (velocity.magnitude > 0.1) {
             // アニメーターに速度を渡す
             AnimationSetter.CharaAnimSet(animator, AnimType.Walk);
             // 入力がある方向にキャラクターを移動させる
@@ -68,8 +61,7 @@ public class PlayerControl : MonoBehaviour
             player.transform.localPosition += velocity;
 
         }
-        else
-        {
+        else {
             AnimationSetter.CharaAnimSet(animator, AnimType.Idel);
             //animator.SetFloat("Speed", 0f);
         }
@@ -81,28 +73,23 @@ public class PlayerControl : MonoBehaviour
         //    player.transform.rotation = Quaternion.LookRotation(diff);
         //}
     }
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         MovePlayer(PlayerInfo.Instance.PlayerObj);
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (GameManager.Instance.TimeStop) return;
         float h = Input.GetAxisRaw("RX_Horizontal");
 
-        if(h != 0)
-        {
-            if(h < 0) { PlayerInfo.Instance.PlayerObj.transform.Rotate(new Vector3(0, -100 * Time.deltaTime, 0)); }
+        if (h != 0) {
+            if (h < 0) { PlayerInfo.Instance.PlayerObj.transform.Rotate(new Vector3(0, -100 * Time.deltaTime, 0)); }
             else { PlayerInfo.Instance.PlayerObj.transform.Rotate(new Vector3(0, 100 * Time.deltaTime, 0)); }
         }
-        
-        if (Input.GetKey(KeyCode.A))
-        {
+
+        if (Input.GetKey(KeyCode.A)) {
             PlayerInfo.Instance.PlayerObj.transform.Rotate(new Vector3(0, -100 * Time.deltaTime, 0));
         }
-        else if (Input.GetKey(KeyCode.D))
-        {
+        else if (Input.GetKey(KeyCode.D)) {
             PlayerInfo.Instance.PlayerObj.transform.Rotate(new Vector3(0, 100 * Time.deltaTime, 0));
         }
     }

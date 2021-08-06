@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SearchTrigger : MonoBehaviour
-{
+public class SearchTrigger : MonoBehaviour {
     public bool IsSearch { get; private set; }
-    public GameObject GetSearchObj { get => _targets; }
-    private GameObject _targets;
+    public GameObject GetSearchObj { get => targets; }
+    private GameObject targets;
 
     //private void Start()
     //{
@@ -14,54 +13,44 @@ public class SearchTrigger : MonoBehaviour
     //    searching.onFound += OnFound;
     //    searching.onLost += OnLost;
     //}
-    private IEnumerator Start()
-    {
+    private IEnumerator Start() {
         yield return PlayerInfo.Instance.PlayerObj != null;
         var searching = GetComponentInChildren<SearchingBehavior>();
         searching.onFound += OnFound;
         searching.onLost += OnLost;
     }
 
-    public void SearchReset()
-    {
+    public void SearchReset() {
         var searching = GetComponentInChildren<SearchingBehavior>();
         searching.ResetList();
     }
-    private void OnFound(GameObject i_foundObject)
-    {
+    private void OnFound(GameObject i_foundObject) {
         // サーチしているオブジェクトがプレイヤー以外の場合
-        if(this.gameObject != PlayerInfo.Instance.PlayerObj)
-        {
-            if (i_foundObject == PlayerInfo.Instance.PlayerObj)
-            {
-                _targets = i_foundObject;
+        if (this.gameObject != PlayerInfo.Instance.PlayerObj) {
+            if (i_foundObject == PlayerInfo.Instance.PlayerObj) {
+                targets = i_foundObject;
                 PlayerInfo.Instance.Sortings.Add(this.gameObject);
                 IsSearch = true;
             }
         }
-        else
-        {
+        else {
             var hit = i_foundObject.GetComponent<IHackable>();
-            if(hit != null)
-            {
-                _targets = i_foundObject;
+            if (hit != null) {
+                targets = i_foundObject;
                 IsSearch = true;
             }
         }
-        
+
     }
 
-    private void OnLost(GameObject i_lostObject)
-    {
-        if(this.gameObject != PlayerInfo.Instance.PlayerObj)
-        {
-            _targets = null;
+    private void OnLost(GameObject i_lostObject) {
+        if (this.gameObject != PlayerInfo.Instance.PlayerObj) {
+            targets = null;
             PlayerInfo.Instance.Sortings.Remove(this.gameObject);
             IsSearch = false;
         }
-        else
-        {
-            _targets = null;
+        else {
+            targets = null;
             IsSearch = false;
         }
     }

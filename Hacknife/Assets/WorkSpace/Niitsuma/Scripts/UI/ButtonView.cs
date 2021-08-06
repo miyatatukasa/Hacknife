@@ -1,25 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonView : MonoBehaviour
-{
+public class ButtonView : MonoBehaviour {
     [SerializeField] private Image btnUi;
 
-    void Start()
-    {
+    void Start() {
         btnUi.gameObject.SetActive(false);
     }
 
-    void Update()
-    {
-        if (PlayerInfo.Instance.CanHacking || PlayerInfo.Instance.ShouldShowBtnUI)
-        {
+    void Update() {
+        if (PlayerInfo.Instance.CanHacking || PlayerInfo.Instance.ShouldShowBtnUI) {
             btnUi.gameObject.SetActive(true);
         }
-        else if(!PlayerInfo.Instance.CanHacking && !PlayerInfo.Instance.ShouldShowBtnUI) 
-        {
+        else if (!PlayerInfo.Instance.CanHacking && !PlayerInfo.Instance.ShouldShowBtnUI) {
             btnUi.gameObject.SetActive(false);
         }
     }

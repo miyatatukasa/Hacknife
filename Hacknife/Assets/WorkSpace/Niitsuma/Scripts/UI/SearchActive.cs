@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class SearchActive : MonoBehaviour
-{
+public class SearchActive : MonoBehaviour {
     [SerializeField] private CharactorType charactorType;
     [SerializeField] private GameObject searchView;
 
@@ -11,14 +10,11 @@ public class SearchActive : MonoBehaviour
     /// 索敵範囲をアクティブにする
     /// </summary>
     /// <param name="type"></param>
-    private void CharTypeActiveSet(CharactorType type)
-    {
-        if(this.charactorType == type)
-        {
+    private void CharTypeActiveSet(CharactorType type) {
+        if (this.charactorType == type) {
             searchView.SetActive(true);
         }
-        else
-        {
+        else {
             searchView.SetActive(false);
         }
     }

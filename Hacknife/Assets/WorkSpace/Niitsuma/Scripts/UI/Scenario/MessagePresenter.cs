@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MessageView))]
-public class MessagePresenter : MonoBehaviour
-{
-    [SerializeField] private float _messageSpeed = 0.5f;
-    public float MessageSpeed { set { _messageSpeed = value; } }
+public class MessagePresenter : MonoBehaviour {
+    [SerializeField] private float messageSpeed = 0.5f;
+    public float MessageSpeed { set { messageSpeed = value; } }
 
 
     private MessageView _textView;
@@ -20,8 +18,7 @@ public class MessagePresenter : MonoBehaviour
     private float _timer = 0;
     private System.Action _callback = null;
 
-    public void SetMessage(string message, System.Action callback = null)
-    {
+    public void SetMessage(string message, System.Action callback = null) {
         _callback = callback;
         //_textType = textType;
         _originalMessage = message;
@@ -31,19 +28,15 @@ public class MessagePresenter : MonoBehaviour
         StartCoroutine(MessageDisp());
     }
 
-    private void Start()
-    {
+    private void Start() {
         _textView = GetComponent<MessageView>();
 
     }
 
-    IEnumerator MessageDisp()
-    {
-        while (_messageCount < _originalMessage.Length)
-        {
+    IEnumerator MessageDisp() {
+        while (_messageCount < _originalMessage.Length) {
             _timer += Time.deltaTime;
-            if (_timer >= _messageSpeed)
-            {
+            if (_timer >= messageSpeed) {
                 _timer = 0;
                 _messageCount++;
                 // 元のメッセージから指定部分を引き出す(０～_messageCount)

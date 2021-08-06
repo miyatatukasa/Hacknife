@@ -3,16 +3,14 @@ using UnityEngine.UI;
 
 
 [DefaultExecutionOrder(-1)]
-public class MaterialSetter : MonoBehaviour
-{
-    [SerializeField] private Image _image;
-    [SerializeField] private Shader _shader = null;
-    [SerializeField] private Color _color = Color.white;
+public class MaterialSetter : MonoBehaviour {
+    [SerializeField] private Image image;
+    [SerializeField] private Shader shader = null;
+    [SerializeField] private Color color = Color.white;
 
 
-    void Awake()
-    {
-        _image.material = NoiseParameter.GeneratNoiseMat(_shader, _color);
-        NoiseParameter.NoiseFade(_image.material, 0);
+    void Awake() {
+        image.material = NoiseParameter.GeneratNoiseMat(shader, color);
+        NoiseParameter.NoiseFade(image.material, 0);
     }
 }

@@ -4,23 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameOverControl : MonoBehaviour
-{
-    [SerializeField] private Image _noiseUI;
+public class GameOverControl : MonoBehaviour {
+    [SerializeField] private Image noiseUI;
     [SerializeField] private FadeControl fade;
-    private bool _noiseStart = false;
+    private bool noiseStart = false;
 
-    private void Update()
-    {
-        if (GameManager.Instance.GameOver && !_noiseStart)
-        {
-            FadeControl.Instance.NoiseFade(_noiseUI.material, 1f, 3f, () => StartCoroutine(GameOver()));
-            _noiseStart = true;
+    private void Update() {
+        if (GameManager.Instance.GameOver && !noiseStart) {
+            FadeControl.Instance.NoiseFade(noiseUI.material, 1f, 3f, () => StartCoroutine(GameOver()));
+            noiseStart = true;
         }
     }
 
-    private IEnumerator GameOver()
-    {
+    private IEnumerator GameOver() {
         yield return new WaitForSeconds(2f);
         fade.Fade(false, () => SceneManager.LoadScene("TitleMenu"));
     }

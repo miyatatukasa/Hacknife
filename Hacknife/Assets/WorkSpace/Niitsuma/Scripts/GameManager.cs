@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
-public class GameManager : MonoBehaviour
-{
-    public static GameManager Instance { get => _instance; }
-    private static GameManager _instance;
+public class GameManager : MonoBehaviour {
+    public static GameManager Instance { get => instance; }
+    private static GameManager instance;
 
     // õ“G”ÍˆÍ‚Ì•\¦E”ñ•\¦
     public bool SearchAreaView { get; set; }
@@ -16,9 +15,8 @@ public class GameManager : MonoBehaviour
     public bool GameOver { get; set; } = false;
 
 
-    void Awake()
-    {
-        _instance = this;
+    void Awake() {
+        instance = this;
     }
 
 }

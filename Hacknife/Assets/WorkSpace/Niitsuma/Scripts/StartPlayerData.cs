@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class StartPlayerData : MonoBehaviour, IHackable
-{
+public class StartPlayerData : MonoBehaviour, IHackable {
     public CharactorType GetEnemyType { get; private set; }
 
-    void Awake()
-    {
+    void Awake() {
         GetEnemyType = CharactorType.StartPlayer;
     }
 
-    void Update()
-    {
-        if(this.gameObject != PlayerInfo.Instance.PlayerObj) { gameObject.SetActive(false); }
+    void Update() {
+        if (this.gameObject != PlayerInfo.Instance.PlayerObj) { gameObject.SetActive(false); }
     }
 }

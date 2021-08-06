@@ -1,66 +1,57 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ScenarioMessageView))]
-public class ScenarioMessageControl : MonoBehaviour
-{
+public class ScenarioMessageControl : MonoBehaviour {
 
-    [SerializeField] private float _messageSpeed = 0.5f;
-    public float MessageSpeed { set { _messageSpeed = value; } }
+    [SerializeField] private float messageSpeed = 0.5f;
+    public float MessageSpeed { set { messageSpeed = value; } }
 
     public bool IsCheck { get; set; } = false;
     public bool IsAllDisplay { get; set; } = false;
 
     private ScenarioMessageView _textView;
-    
-    private string _originalMessage = "";
-    private string _dispMessage = "";
-    private int _messageCount = 0;
-    private float _timer = 0;
-    private System.Action _callback = null;
 
-    public void SetName(string name)
-    {
+    private string originalMessage = "";
+    private string dispMessage = "";
+    private int messageCount = 0;
+    private float timer = 0;
+    private System.Action callback = null;
+
+    public void SetName(string name) {
         _textView.SetMessage(name);
     }
-    public void SetMessage(string message, System.Action callback = null)
-    {
-        _callback = callback;
-        _originalMessage = message;
-        _dispMessage = "";
-        _messageCount = 0;
-        _timer = 0;
+    public void SetMessage(string message, System.Action callback = null) {
+        this.callback = callback;
+        originalMessage = message;
+        dispMessage = "";
+        messageCount = 0;
+        timer = 0;
         StartCoroutine(MessageDisp());
     }
 
-    private void Start()
-    {
+    private void Start() {
         _textView = GetComponent<ScenarioMessageView>();
 
     }
 
-    IEnumerator MessageDisp()
-    {
+    IEnumerator MessageDisp() {
         GameManager.Instance.TimeStop = true;
-        while (_messageCount < _originalMessage.Length)
-        {
-            _timer += Time.deltaTime;
-            if (_timer >= _messageSpeed && !IsAllDisplay)
-            {
-                _timer = 0;
-                _messageCount++;
+        while (messageCount < originalMessage.Length) {
+            timer += Time.deltaTime;
+            if (timer >= messageSpeed && !IsAllDisplay) {
+                timer = 0;
+                messageCount++;
                 // 元のメッセージから指定部分を引き出す(０～_messageCount)
-                _dispMessage = _originalMessage.Substring(0, _messageCount);
-                _textView.SetMessage(_dispMessage);
+                dispMessage = originalMessage.Substring(0, messageCount);
+                _textView.SetMessage(dispMessage);
             }
-            else if (IsAllDisplay)
-            {
-                _timer = 0;
-                _dispMessage = _originalMessage;
-                _messageCount = _originalMessage.Length;
-                _textView.SetMessage(_dispMessage);
+            else if (IsAllDisplay) {
+                timer = 0;
+                dispMessage = originalMessage;
+                messageCount = originalMessage.Length;
+                _textView.SetMessage(dispMessage);
                 IsCheck = false;
             }
             yield return null;
@@ -68,6 +59,6 @@ public class ScenarioMessageControl : MonoBehaviour
         IsAllDisplay = false;
         IsCheck = false;
         // ループを抜けたらcallback
-        if (_callback != null) _callback();
+        if (callback != null) callback();
     }
 }

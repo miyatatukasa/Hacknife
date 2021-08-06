@@ -3,53 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using XboxInput;
 
-public class PlayerHacking : MonoBehaviour
-{
-    private PlayerInfo _info;
-    private FowardSearch _search;
+public class PlayerHacking : MonoBehaviour {
+    private PlayerInfo info;
+    private FowardSearch search;
     //IAttackable _attackable;
 
-    void Start()
-    {
-        _info = PlayerInfo.Instance;
+    void Start() {
+        info = PlayerInfo.Instance;
         // 最初にプレイヤーとなるオブジェクトの攻撃処理を呼ぶ
-        _search = _info.PlayerObj.GetComponent<FowardSearch>();
+        search = info.PlayerObj.GetComponent<FowardSearch>();
         //_attackable = _info.Attack = _playObj.GetComponent<IAttackable>();
     }
 
 
-    void Hacking(GameObject hit)
-    {
-        _info.PlayerObj = hit;
-        _info.Hack = hit.GetComponent<IHackable>();
-        _info.EnemyType = _info.Hack.GetEnemyType;
-        _search = _info.PlayerObj.GetComponent<FowardSearch>();
+    void Hacking(GameObject hit) {
+        info.PlayerObj = hit;
+        info.Hack = hit.GetComponent<IHackable>();
+        info.EnemyType = info.Hack.GetEnemyType;
+        search = info.PlayerObj.GetComponent<FowardSearch>();
         //_attackable = _playObj.GetComponent<IAttackable>();
     }
 
-    void Update()
-    {
+    void Update() {
 
-        if (_info.Sortings.Count == 0)
-        {
-            if (_search.IsSearch)
-            {
-                _info.CanHacking = true;
+        if (info.Sortings.Count == 0) {
+            if (search.IsSearch) {
+                info.CanHacking = true;
             }
-            else
-            {
-                _info.CanHacking = false;
+            else {
+                info.CanHacking = false;
             }
         }
-        else
-        {
-            _info.CanHacking = false;
+        else {
+            info.CanHacking = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space) || XBXInput.PushDown(XBXBtn.B))
-        {
-            if (_info.CanHacking)
-            {
-                Hacking(_search.GetSearchObj);
+        if (Input.GetKeyDown(KeyCode.Space) || XBXInput.PushDown(XBXBtn.B)) {
+            if (info.CanHacking) {
+                Hacking(search.GetSearchObj);
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿
 [System.Serializable]
-public enum TextType
-{
+public enum TextType {
     NameText = 0,
     MessageText,
     TextTypeMax,

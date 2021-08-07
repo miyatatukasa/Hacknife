@@ -10,7 +10,6 @@ public class Chara : MonoBehaviour
     void Start()
     {
         Cha = this.GetComponent<RectTransform>();
-
     }
 
     // Update is called once per frame

@@ -27,7 +27,7 @@ public class PlayerControl : MonoBehaviour {
         animator = playObj.GetComponent<Animator>();
     }
     void MovePlayer(GameObject player) {
-        if (GameManager.Instance.TimeStop) return;
+        //if (GameManager.Instance.TimeStop) return;
         if (playObj != info.PlayerObj) { PlayerInit(); }
         /*’·“‡’Ç‰Á*/
         float h = Input.GetAxisRaw("Horizontal");
@@ -78,7 +78,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     private void Update() {
-        if (GameManager.Instance.TimeStop) return;
+        //if (GameManager.Instance.TimeStop) return;
         float h = Input.GetAxisRaw("RX_Horizontal");
 
         if (h != 0) {

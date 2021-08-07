@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExcelAsset]
-public class ShiyuuMessage : ScriptableObject
-{
+public class ShiyuuMessage : ScriptableObject {
 	public List<ScenarioDataParem> Shiyuu;
 }

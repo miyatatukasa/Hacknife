@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum EventFlag {
     START_EVENT,
@@ -24,7 +25,10 @@ static class EventExt {
 }
 public class EventManager : SingletonBehaviour<EventManager> {
 
+    // 登録されたイベント
     private Dictionary<int, EventFlag> EventList = new Dictionary<int, EventFlag>();
+    // 呼び出されたオブジェクトの登録用
+    private List<GameObject> callingList = new List<GameObject>();
     // 現在のイベント番号
     public int EventNum { get; private set; }
 
@@ -38,8 +42,12 @@ public class EventManager : SingletonBehaviour<EventManager> {
 
     /// <summary>
     /// イベント番号の更新
+    /// 同一のオブジェクトらは一度しか呼び出せない
     /// </summary>
-    public void EventUpdate() {
+    /// <param name="call">呼び出したオブジェクト</param>
+    public void EventUpdate(GameObject call) {
+        if (!callingList.Contains(call)) { callingList.Add(call); }
+        else { return; }
         EventNum++;
     }
 
@@ -56,7 +64,6 @@ public class EventManager : SingletonBehaviour<EventManager> {
     private void FlagCreate() {
         for (int i = 0; i < (int)EventFlag.EVENT_MAX; i++) {
             EventList.Add(i, (EventFlag)i);
-            //Debug.LogError(EventList[i].EventDesc());
         }
     }
 

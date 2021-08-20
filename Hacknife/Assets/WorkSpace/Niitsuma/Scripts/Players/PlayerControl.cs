@@ -16,8 +16,7 @@ public class PlayerControl : MonoBehaviour
     private Vector3 velocity;
     Rigidbody rigidbody;
 
-    void Awake()
-    {
+    void Awake(){
         _info = PlayerInfo.Instance;
         // 最初のプレイヤー
         _info.PlayerObj = _playObj;
@@ -25,8 +24,7 @@ public class PlayerControl : MonoBehaviour
         animator = _playObj.GetComponent<Animator>();
     }
 
-    void MovePlayer(GameObject player)
-    {
+    void MovePlayer(GameObject player){
         /*長島追加*/
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -41,37 +39,8 @@ public class PlayerControl : MonoBehaviour
         {
            player.transform.rotation = Quaternion.LookRotation(moveForward);
         }
-
-        /* // キャラクター移動処理
-         velocity = new Vector3(h, 0, v);    // 上下のキー入力からZ軸の移動量を取得
-
-         if (v > 0.1 || v < 0.1)
-         {
-             velocity *= MoveSpeed;       // 移動速度を掛ける
-         }
-         if (velocity.magnitude > 0.1)
-         {
-             // アニメーターに速度を渡す
-             animator.SetFloat("Speed", velocity.magnitude);
-             // 入力がある方向にキャラクターを移動させる
-             player.transform.localPosition += velocity;
-         }
-         else
-         {
-             animator.SetFloat("Speed", 0f);
-         }
-
-         // キャラクター回転処理
-         Vector3 diff = player.transform.position - playerPos;
-         if (diff.magnitude > 0.01f)
-         {
-             player.transform.rotation = Quaternion.LookRotation(diff);
-         }*/
     }
-    void FixedUpdate()
-    {
-        /*playerPos = _playObj.transform.position;
-        Debug.Log(playerPos);*/
+    void FixedUpdate(){
         MovePlayer(PlayerInfo.Instance.PlayerObj);
     }
 }

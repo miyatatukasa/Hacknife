@@ -4,23 +4,22 @@ public class CameraController : MonoBehaviour
 {
     // カメラの変数
     [SerializeField]
-    GameObject mainCamera;
+   private GameObject mainCamera;
     // スクリプトの参照
     [SerializeField]
-    PlayerInfo playerInfo;
+   private PlayerInfo playerInfo;
     // 構え時のレティクル
     [SerializeField]
-    GameObject reticle;
+   private GameObject reticle;
     // 追従対象のオブジェクト
-    GameObject targetObj;
+   private GameObject targetObj;
     // 構え時のカメラ位置
-    GameObject ADSPos;
+   private GameObject adsPos;
 
     /// <summary>
     /// カメラの位置と追従対象の初期化
     /// </summary>
-    public void InitCameraPos()
-    {
+    public void InitCameraPos(){
         // 通常位置オブジェクト参照
         targetObj = playerInfo.PlayerObj.transform.Find("CamPos").gameObject;
         // 鎌叡智オブジェクト参照
@@ -29,27 +28,22 @@ public class CameraController : MonoBehaviour
         mainCamera.transform.position = targetObj.transform.position;
     }
 
-    private void ADSControl()
-    {
-        mainCamera.transform.position = ADSPos.transform.position;
+    private void ADSControl(){
+        mainCamera.transform.position = adsPos.transform.position;
         reticle.SetActive(true);
     }
 
-    void Start()
-    {
+    void Start(){
         InitCameraPos();
     }
 
 
-    void FixedUpdate()
-    {
+    void FixedUpdate(){
         mainCamera.transform.position += targetObj.transform.position - mainCamera.transform.position;
-        if (Input.GetAxis("ADS") >= 0.1)
-        {
+        if (Input.GetAxis("ADS") >= 0.1){
             ADSControl();
         }
-        else
-        {
+        else{
             reticle.SetActive(false);
         }
 

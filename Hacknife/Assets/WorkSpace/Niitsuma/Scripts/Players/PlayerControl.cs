@@ -16,7 +16,8 @@ public class PlayerControl : MonoBehaviour
     private Vector3 velocity;
     Rigidbody rigidbody;
 
-    void Awake(){
+    void Awake()
+    {
         _info = PlayerInfo.Instance;
         // ç≈èâÇÃÉvÉåÉCÉÑÅ[
         _info.PlayerObj = _playObj;
@@ -24,7 +25,8 @@ public class PlayerControl : MonoBehaviour
         animator = _playObj.GetComponent<Animator>();
     }
 
-    void MovePlayer(GameObject player){
+    void MovePlayer(GameObject player)
+    {
         /*í∑ìáí«â¡*/
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -37,10 +39,12 @@ public class PlayerControl : MonoBehaviour
 
         if (moveForward != Vector3.zero)
         {
-           player.transform.rotation = Quaternion.LookRotation(moveForward);
+            player.transform.rotation = Quaternion.LookRotation(moveForward);
         }
     }
-    void FixedUpdate(){
+
+    void FixedUpdate()
+    {
         MovePlayer(PlayerInfo.Instance.PlayerObj);
     }
 }

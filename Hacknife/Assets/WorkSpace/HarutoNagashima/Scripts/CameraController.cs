@@ -28,6 +28,8 @@ public class CameraController : MonoBehaviour
     private Vector3 PosVector;
     // 直前の座標
     private Vector3 prevPlayerPos;
+    // 構えのフラグ
+    private bool isADS = false;
 
     /// <summary>
     /// カメラの位置と追従対象の初期化
@@ -71,13 +73,18 @@ public class CameraController : MonoBehaviour
         if (Input.GetAxis("ADS") >= 0.1)
         {
             ADSControl();
+            isADS = true;
         }
         else
         {
             reticle.SetActive(false);
+            isADS = false;
         }
 
-        FollowCamera(playerInfo.PlayerObj);
+        if (isADS == false)
+        {
+            FollowCamera(playerInfo.PlayerObj);
+        }
 
     }
 }

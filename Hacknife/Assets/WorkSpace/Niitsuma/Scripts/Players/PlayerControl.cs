@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
     // プレイヤーのポジション
     private Vector3 playerPos;
     private Vector3 velocity;
-    Rigidbody rigidbody;
+    private Rigidbody rigidbody;
 
     void Awake()
     {

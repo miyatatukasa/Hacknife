@@ -5,24 +5,31 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private GameObject _playObj;
     PlayerInfo _info;
 
-    /*長島追加*/
     // 移動速度
     [SerializeField]
     float MoveSpeed;
-    // アニメーターの参照
-    private Animator animator;
-    // プレイヤーのポジション
-    private Vector3 playerPos;
-    private Vector3 velocity;
-    private Rigidbody rigidbody;
+    // アニメーター
+    private Animator anim;
+    // プレイヤーのリジッドボディ
+    private Rigidbody rig;
 
     void Awake()
     {
         _info = PlayerInfo.Instance;
         // 最初のプレイヤー
         _info.PlayerObj = _playObj;
+    }
+
+    void Start()
+    {
         // アニメーター取得
-        animator = _playObj.GetComponent<Animator>();
+        anim = _playObj.GetComponent<Animator>();
+    }
+
+    void FixedUpdate()
+    {
+        MovePlayer(PlayerInfo.Instance.PlayerObj);
+        ApplyAnimatorParameter();
     }
 
     void MovePlayer(GameObject player)
@@ -31,11 +38,12 @@ public class PlayerControl : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        rigidbody = player.GetComponent<Rigidbody>();
+        rig = player.GetComponent<Rigidbody>();
 
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = cameraForward * v + Camera.main.transform.right * h;
-        rigidbody.velocity = moveForward * MoveSpeed + new Vector3(0, rigidbody.velocity.y, 0);
+
+        rig.velocity = moveForward * MoveSpeed + new Vector3(0, rig.velocity.y, 0);
 
         if (moveForward != Vector3.zero)
         {
@@ -43,8 +51,11 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void ApplyAnimatorParameter()
     {
-        MovePlayer(PlayerInfo.Instance.PlayerObj);
+        var speed = Mathf.Abs(rig.velocity.normalized.magnitude);
+        anim.SetFloat("Speed", speed,0.1f,Time.deltaTime);
     }
+
+
 }

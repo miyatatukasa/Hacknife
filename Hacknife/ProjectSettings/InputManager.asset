@@ -185,16 +185,16 @@ InputManager:
     m_Name: ADS
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick button 3
-    positiveButton: joystick button 9
+    negativeButton: 
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
-    dead: 0.01
-    sensitivity: 700
+    dead: 0.001
+    sensitivity: 1000
     snap: 0
     invert: 0
-    type: 2
+    type: 0
     axis: 0
     joyNum: 0
   - serializedVersion: 3

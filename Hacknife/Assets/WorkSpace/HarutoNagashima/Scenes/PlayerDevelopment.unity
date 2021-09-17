@@ -3112,7 +3112,7 @@ MonoBehaviour:
   reticle: {fileID: 845042645}
   camHeight: 1
   cameraDistance: 2
-  cameraSpeed: 3
+  cameraSpeed: 2.5
 --- !u!4 &371014831688942148
 Transform:
   m_ObjectHideFlags: 0
@@ -24381,7 +24381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playObj: {fileID: 7016260345381874766}
-  MoveSpeed: 5
+  MoveSpeed: 10
 --- !u!33 &8204115247265768128
 MeshFilter:
   m_ObjectHideFlags: 0

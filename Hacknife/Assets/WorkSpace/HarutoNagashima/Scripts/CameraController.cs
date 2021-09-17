@@ -39,6 +39,10 @@ public class CameraController : MonoBehaviour
         adsPos = playerInfo.PlayerObj.transform.Find("ADSPos").gameObject;
     }
 
+    /// <summary>
+    /// 背面のベクトルを採って現在の位置から線間補完で追従する
+    /// </summary>
+    /// <param name="player"></param>
     private void FollowCamera(GameObject player)
     {
         targetObj = playerInfo.PlayerObj.transform.Find("CamPos").gameObject;

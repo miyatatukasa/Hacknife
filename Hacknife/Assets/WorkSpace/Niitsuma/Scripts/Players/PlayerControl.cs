@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour
 
     void ApplyAnimatorParameter()
     {
-        var speed = Mathf.Abs(rig.velocity.normalized.magnitude);
+        var speed = Mathf.Abs(rig.velocity.magnitude);
         anim.SetFloat("Speed", speed,0.1f,Time.deltaTime);
     }
 
